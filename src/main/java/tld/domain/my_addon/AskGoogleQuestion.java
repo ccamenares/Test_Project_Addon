@@ -3,6 +3,8 @@ package tld.domain.my_addon;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.testproject.java.enums.ExecutionResultType;
 import io.testproject.java.sdk.generated.codeblocks.Action;
@@ -31,6 +33,12 @@ public class AskGoogleQuestion extends Action {
 		searchBox.sendKeys(this.question);
 		// Submit search
 		searchBox.submit();
+		
+		// Wait for answer to appear
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='_NId'][1]")));
+		// Getting the first result element
+		WebElement resultDiv = driver.findElement(By.xpath("//div[@class='_NId'][1]"));
 		
 		return null;
 		
