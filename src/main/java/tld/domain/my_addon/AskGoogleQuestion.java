@@ -12,6 +12,7 @@ import io.testproject.java.sdk.generated.codeblocks.Action;
 public class AskGoogleQuestion extends Action {
 	
 	private String question = "How can I best test my software?";
+	private String answer;
 	@Override
 	protected ExecutionResultType execute() throws Exception {
 		// Get Driver
@@ -40,9 +41,11 @@ public class AskGoogleQuestion extends Action {
 		// Getting the first result element
 		WebElement resultDiv = driver.findElement(By.xpath("//div[@class='_NId'][1]"));
 		
-		return null;
-		
-		
+		// Setting the output property
+		this.answer = resultDiv.getText();
+		// Set output message
+		this.setMessage("Google's answer: " + this.answer);
+		return ExecutionResultType.Passed;
 	}
 
 }
